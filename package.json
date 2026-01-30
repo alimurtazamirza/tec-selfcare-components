@@ -1,0 +1,28 @@
+{
+  "name": "@alimurtazamirza/tec-selfcare-components",
+  "version": "1.0.0",
+  "description": "Reusable Next.js page components for PWA applications",
+  "private": false,
+  "main": "src/index.js",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.js",
+    "./LoginPage": "./src/LoginPage/index.js",
+    "./DashboardPage": "./src/DashboardPage/index.js"
+  },
+  "scripts": {
+    "prepublishOnly": "echo 'Ready to publish'"
+  },
+  "keywords": ["nextjs", "react", "components", "pwa"],
+  "author": "Your Name",
+  "license": "UNLICENSED",
+  "peerDependencies": {
+    "@mui/material": "^5.0.0 || ^6.0.0",
+    "react": "^18.0.0 || ^19.0.0",
+    "next": "^14.0.0 || ^15.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alimurtazamirza/tec-selfcare-components.git"
+  }
+}
