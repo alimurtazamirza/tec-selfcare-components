@@ -1,3 +1,4 @@
+"user server";
 import { Box } from "@mui/material";
 
 /**
