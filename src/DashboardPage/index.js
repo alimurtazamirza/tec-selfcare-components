@@ -1,4 +1,4 @@
-import ClientWrapper from "./ClientWrapper.js";
+import ClientWrapper from "./ClientWrapper.jsx";
 
 /**
  * Reusable Dashboard Page Component (Server Component)
@@ -11,7 +11,7 @@ import ClientWrapper from "./ClientWrapper.js";
  * @param {React.ComponentType} props.Content - Main content component
  * @param {Function} props.getUserFn - Async function to fetch user data (optional)
  * @param {Object} props.user - User data object (if already fetched)
- * @param {Function} props.onLogout - Logout handler function
+ * @param {Function} props.onLogoutAction - Server action for logout (must have "use server")
  * @param {React.ReactNode} props.children - Child components
  */
 export default async function DashboardPage({
@@ -21,7 +21,7 @@ export default async function DashboardPage({
   Content,
   getUserFn,
   user: providedUser,
-  onLogout,
+  onLogoutAction,
   children,
 }) {
   // Fetch user data if getUserFn is provided and user wasn't passed
@@ -42,7 +42,7 @@ export default async function DashboardPage({
       Header={Header}
       Content={Content}
       user={user}
-      onLogout={onLogout}
+      onLogoutAction={onLogoutAction}
     >
       {children}
     </ClientWrapper>
