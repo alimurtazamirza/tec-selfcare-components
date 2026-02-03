@@ -76,89 +76,89 @@ export default function RequestOtp({
         </Box>
 
       {/* Right side form */}
-      <Box
+        <Box
         sx={{
-          width: { xs: "100%", md: "50%" },
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          p: 4,
+            width: { xs: "100%", md: "50%" },
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            p: 4,
         }}
-      >
+        >
         <Card
-          sx={{
+            sx={{
             width: "100%",
             maxWidth: 440,
             height: 500,
             p: 4,
             boxShadow: 3,
             borderRadius: 5,
-          }}
+            }}
         >
-          <Typography variant="h5" fontWeight={700} gutterBottom sx={{ mt: 1 }}>
+            <Typography variant="h5" fontWeight={700} gutterBottom sx={{ mt: 1 }}>
             {pageTitle}
-          </Typography>
+            </Typography>
 
-          <Typography variant="h6" sx={{ mt: 2 }}>
+            <Typography variant="h6" sx={{ mt: 2 }}>
             {pageSubtitle}
-          </Typography>
-          <Typography variant="body2" mt={2} mb={3} color="text.secondary">
+            </Typography>
+            <Typography variant="body2" mt={2} mb={3} color="text.secondary">
             {pageDescription}
-          </Typography>
+            </Typography>
 
-          <form action={action}>
+            <form action={action}>
             <Typography
-              variant="body2"
-              sx={{
+                variant="body2"
+                sx={{
                 fontWeight: 600,
                 color: "text.secondary",
                 letterSpacing: "0.04em",
-              }}
+                }}
             >
-              {fieldLabel}
+                {fieldLabel}
             </Typography>
 
             <TextField
-              fullWidth
-              name="phone"
-              type="tel"
-              inputMode="numeric"
-              pattern="[0-9]*"
-              placeholder={fieldPlaceholder}
-              margin="normal"
-              sx={{ borderRadius: 4 }}
-              required
+                fullWidth
+                name="phone"
+                type="tel"
+                inputMode="numeric"
+                pattern="[0-9]*"
+                placeholder={fieldPlaceholder}
+                margin="normal"
+                sx={{ borderRadius: 4 }}
+                required
             />
 
             <Button
-              fullWidth
-              type="submit"
-              size="large"
-              variant="contained"
-              sx={{ mt: 2, fontSize: 16, fontWeight: 900, borderRadius: 3 }}
+                fullWidth
+                type="submit"
+                size="large"
+                variant="contained"
+                sx={{ mt: 2, fontSize: 16, fontWeight: 900, borderRadius: 3 }}
             >
-              {buttonText}
+                {buttonText}
             </Button>
-          </form>
+            </form>
 
-          <Typography color="body1" textAlign="center" mt={5}>
+            <Typography color="body1" textAlign="center" mt={5}>
             {footerText} <a href={footerLink}>{footerLinkText}</a>
-          </Typography>
-          <Typography
+            </Typography>
+            <Typography
             variant="body2"
             mt={2}
             textAlign="center"
             sx={{
-              color: "text.secondary",
-              letterSpacing: "0.08em",
-              fontWeight: 400,
-              opacity: 0.85,
+                color: "text.secondary",
+                letterSpacing: "0.08em",
+                fontWeight: 400,
+                opacity: 0.85,
             }}
-          >
+            >
             {copyrightText}
-          </Typography>
+            </Typography>
         </Card>
-      </Box>
+        </Box>
     </Box>
   );
 }
