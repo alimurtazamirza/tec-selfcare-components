@@ -8,7 +8,8 @@
   "exports": {
     ".": "./src/index.js",
     "./LoginPage": "./src/LoginPage/index.jsx",
-    "./DashboardPage": "./src/DashboardPage/index.jsx"
+    "./DashboardPage": "./src/DashboardPage/index.jsx",
+    "./RequestOtpPage": "./src/ui/web/login/RequestOtp.jsx"
   },
   "scripts": {
     "prepublishOnly": "echo 'Ready to publish'"
