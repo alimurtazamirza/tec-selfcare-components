@@ -36,8 +36,7 @@ export default function RequestOtp({
   footerText = "Dont have an account yet?",
   footerLinkText = "Register Now",
   footerLink = "#",
-  copyrightText = "© 2025 — All rights reserved",
-  showWebLayout = true,
+  copyrightText = "© 2025 — All rights reserved"
 }) {
   async function action(formData) {
         const phone = formData.get("phone");
@@ -51,38 +50,35 @@ export default function RequestOtp({
         minHeight: "100vh",
       }}
     >
-      {/* Left side image - only on web */}
-      {showWebLayout && (
         <Box
-          sx={{
+            sx={{
             width: "50%",
             backgroundImage: `url('${backgroundImage}')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             display: { xs: "none", md: "block" },
-          }}
+            }}
         >
-          <Box sx={{ position: "absolute", bottom: "10%", left: "6%" }}>
+            <Box sx={{ position: "absolute", bottom: "10%", left: "6%" }}>
             {logo && (
-              <img 
+                <img 
                 src={logo} 
                 alt="Logo" 
                 width={120} 
                 height={40}
                 style={{ marginBottom: '1rem' }}
-              />
+                />
             )}
             <Typography variant="h4" color="warning">
-              {welcomeTitle}
+                {welcomeTitle}
             </Typography>
-          </Box>
+            </Box>
         </Box>
-      )}
 
       {/* Right side form */}
       <Box
         sx={{
-          width: { xs: "100%", md: showWebLayout ? "50%" : "100%" },
+          width: { xs: "100%", md: "50%" },
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
