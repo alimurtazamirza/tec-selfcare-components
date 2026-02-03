@@ -7,8 +7,8 @@
   "type": "module",
   "exports": {
     ".": "./src/index.js",
-    "./LoginPage": "./src/LoginPage/index.js",
-    "./DashboardPage": "./src/DashboardPage/index.js"
+    "./LoginPage": "./src/LoginPage/index.jsx",
+    "./DashboardPage": "./src/DashboardPage/index.jsx"
   },
   "scripts": {
     "prepublishOnly": "echo 'Ready to publish'"
