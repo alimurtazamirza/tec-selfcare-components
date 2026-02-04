@@ -23,7 +23,7 @@ import { requestOtp } from "../../business";
  * @param {string} props.copyrightText - Copyright text
  * @param {boolean} props.showWebLayout - Show web layout with background image
  */
-export default function RequestOtp({
+export default function WebRequestOtp({
   logo,
   backgroundImage,
   welcomeTitle = "Welcome to the Fastest Telco Network",

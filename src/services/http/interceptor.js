@@ -1,6 +1,6 @@
 "use server";
 import packageInfo from "../../../package.json";
-import {getSessionServer, clearSessionServer} from "@";
+import {getSessionServer, clearSessionServer} from "../../lib";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
