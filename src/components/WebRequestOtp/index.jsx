@@ -24,8 +24,8 @@ import { requestOtp } from "../../business";
  * @param {boolean} props.showWebLayout - Show web layout with background image
  */
 export default function WebRequestOtp({
-  logo,
-  backgroundImage,
+  logo="https://tec.evampsaanga.com/media/api/widget/item/125.jpg",
+  backgroundImage="https://scportal.evampsaanga.com/assets/images/sign-in/sign-in-background.svg",
   welcomeTitle = "Welcome to the Fastest Telco Network",
   pageTitle = "Login",
   pageSubtitle = "Welcome",

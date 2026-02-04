@@ -1,4 +1,5 @@
 import { Box } from "@mui/material";
+import {decrypt} from "../../lib";
 
 /**
  * Reusable Login Page Component
@@ -9,7 +10,6 @@ import { Box } from "@mui/material";
  * @param {React.ComponentType} props.WebVerifyOtp - Web verify OTP component
  * @param {React.ComponentType} props.MobileRequestOtp - Mobile request OTP component
  * @param {React.ComponentType} props.WebRequestOtp - Web request OTP component
- * @param {Function} props.decryptFn - Async function to decrypt encrypted data
  */
 export default async function LoginPage({
   searchParams,
@@ -17,14 +17,13 @@ export default async function LoginPage({
   WebVerifyOtp,
   MobileRequestOtp,
   WebRequestOtp,
-  decryptFn,
 }) {
   const paramsObj = await searchParams;
 
   const encryptedData = paramsObj?.data;
-  if (encryptedData && decryptFn) {
+  if (encryptedData && decrypt) {
     try {
-      const decrypted = await decryptFn(decodeURIComponent(encryptedData));
+      const decrypted = await decrypt(decodeURIComponent(encryptedData));
       const params = JSON.parse(decrypted);
       
       if (params?.step === "verify" && params?.msisdn) {
