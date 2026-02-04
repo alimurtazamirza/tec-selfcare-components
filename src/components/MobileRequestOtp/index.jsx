@@ -1,5 +1,5 @@
 "use client";
-import { requestOtp } from "@/business";
+import { requestOtp } from "../../business";
 import { Box, Button, TextField, Typography } from "@mui/material";
 
 export default function MobileRequestOtp({
