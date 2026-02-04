@@ -1,6 +1,6 @@
 'use server';
 
-import {getSessionServer, setSessionServer} from "@/lib";
+import {getSessionServer, setSessionServer} from "../../lib";
 
 export async function setDeviceId(deviceId) {
     const existing = await getSessionServer("deviceId");

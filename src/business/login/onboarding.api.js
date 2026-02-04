@@ -1,5 +1,5 @@
 "use server";
-import {httpClient, setSessionServer} from "@/lib";
+import {httpClient, setSessionServer} from "../../lib";
 import {redirect} from "next/navigation";
 
 export async function onboarding(phone, otp) {

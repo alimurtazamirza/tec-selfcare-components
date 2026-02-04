@@ -1,5 +1,5 @@
 "use server";
-import {httpClient, encrypt, getSessionServer} from "@/lib";
+import {httpClient, encrypt, getSessionServer} from "../../lib";
 import {redirect} from "next/navigation";
 
 export async function requestOtp(phone) {

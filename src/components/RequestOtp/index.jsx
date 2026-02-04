@@ -1,7 +1,7 @@
 "use client";
 
 import { Box, Button, TextField, Typography, Card } from "@mui/material";
-import { requestOtp } from "@/business";
+import { requestOtp } from "../../business";
 
 /**
  * Reusable Request OTP Page Component

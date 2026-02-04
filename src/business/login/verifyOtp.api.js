@@ -1,6 +1,6 @@
 "use server";
-import {httpClient} from "@/lib";
-import {onboarding} from "@/business";
+import {httpClient} from "../../lib";
+import {onboarding} from "../../business";
 
 export async function verifyOtp(phone, otp) {
     const client = await httpClient();
