@@ -5,11 +5,10 @@ import { requestOtp } from "../../business";
 
 /**
  * Reusable Request OTP Page Component
- * 
+ *
  * @param {Object} props
- * @param {Function} props.onSubmitAction - Server action to handle OTP request (must have "use server")
  * @param {string} props.logo - Logo image URL
- * @param {string} props.backgroundImage - Background image URL for web layout
+ * @param {string} props.backgroundImage - Background image URL
  * @param {string} props.welcomeTitle - Welcome title text
  * @param {string} props.pageTitle - Page title
  * @param {string} props.pageSubtitle - Page subtitle
@@ -21,11 +20,11 @@ import { requestOtp } from "../../business";
  * @param {string} props.footerLinkText - Footer link text
  * @param {string} props.footerLink - Footer link URL
  * @param {string} props.copyrightText - Copyright text
- * @param {boolean} props.showWebLayout - Show web layout with background image
+ * @param {Object} props.styles - Custom styles object { mainContainer, leftPanel, rightPanel, card, button, input }
  */
 export default function WebRequestOtp({
-  logo="https://tec.evampsaanga.com/media/api/widget/item/125.jpg",
-  backgroundImage="https://scportal.evampsaanga.com/assets/images/sign-in/sign-in-background.svg",
+  logo = "https://tec.evampsaanga.com/media/api/widget/item/125.jpg",
+  backgroundImage = "https://scportal.evampsaanga.com/assets/images/sign-in/sign-in-background.svg",
   welcomeTitle = "Welcome to the Fastest Telco Network",
   pageTitle = "Login",
   pageSubtitle = "Welcome",
@@ -36,129 +35,156 @@ export default function WebRequestOtp({
   footerText = "Dont have an account yet?",
   footerLinkText = "Register Now",
   footerLink = "#",
-  copyrightText = "© 2025 — All rights reserved"
+  copyrightText = "© 2025 — All rights reserved",
+  styles = {} // Default empty object for custom styles
 }) {
   async function action(formData) {
-        const phone = formData.get("phone");
-        await requestOtp(phone);
+    const phone = formData.get("phone");
+    await requestOtp(phone);
   }
 
   return (
     <Box
-      sx={{
-        display: "flex",
-        minHeight: "100vh",
-      }}
+      sx={[
+        {
+          display: "flex",
+          minHeight: "100vh",
+        },
+        styles.mainContainer, // Override main container styles
+      ]}
     >
-        <Box
-            sx={{
+      {/* Left Side (Image) */}
+      <Box
+        sx={[
+          {
             width: "50%",
             backgroundImage: `url('${backgroundImage}')`,
             backgroundSize: "cover",
             backgroundPosition: "center",
             display: { xs: "none", md: "block" },
-            }}
-        >
-            <Box sx={{ position: "absolute", bottom: "10%", left: "6%" }}>
-            {logo && (
-                <img 
-                src={logo} 
-                alt="Logo" 
-                width={120} 
-                height={40}
-                style={{ marginBottom: '1rem' }}
-                />
-            )}
-            <Typography variant="h4" color="warning">
-                {welcomeTitle}
-            </Typography>
-            </Box>
+            position: "relative",
+          },
+          styles.leftPanel, // Override left panel styles
+        ]}
+      >
+        <Box sx={{ position: "absolute", bottom: "10%", left: "6%" }}>
+          {logo && (
+            <img
+              src={logo}
+              alt="Logo"
+              width={120}
+              height={40}
+              style={{ marginBottom: "1rem" }}
+            />
+          )}
+          <Typography variant="h4" color="warning">
+            {welcomeTitle}
+          </Typography>
         </Box>
+      </Box>
 
-      {/* Right side form */}
-        <Box
-        sx={{
+      {/* Right Side (Form) */}
+      <Box
+        sx={[
+          {
             width: { xs: "100%", md: "50%" },
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             p: 4,
-        }}
-        >
+          },
+          styles.rightPanel, // Override right panel wrapper
+        ]}
+      >
         <Card
-            sx={{
-            width: "100%",
-            maxWidth: 440,
-            height: 500,
-            p: 4,
-            boxShadow: 3,
-            borderRadius: 5,
-            }}
+          sx={[
+            {
+              width: "100%",
+              maxWidth: 440,
+              // Removed fixed height to allow content to dictate height, 
+              // but you can add it back via props if needed.
+              p: 4,
+              boxShadow: 3,
+              borderRadius: 5,
+            },
+            styles.card, // Override card styles
+          ]}
         >
-            <Typography variant="h5" fontWeight={700} gutterBottom sx={{ mt: 1 }}>
+          <Typography variant="h5" fontWeight={700} gutterBottom sx={{ mt: 1 }}>
             {pageTitle}
-            </Typography>
+          </Typography>
 
-            <Typography variant="h6" sx={{ mt: 2 }}>
+          <Typography variant="h6" sx={{ mt: 2 }}>
             {pageSubtitle}
-            </Typography>
-            <Typography variant="body2" mt={2} mb={3} color="text.secondary">
+          </Typography>
+          <Typography variant="body2" mt={2} mb={3} color="text.secondary">
             {pageDescription}
-            </Typography>
+          </Typography>
 
-            <form action={action}>
+          <form action={action}>
             <Typography
-                variant="body2"
-                sx={{
+              variant="body2"
+              sx={{
                 fontWeight: 600,
                 color: "text.secondary",
                 letterSpacing: "0.04em",
-                }}
+              }}
             >
-                {fieldLabel}
+              {fieldLabel}
             </Typography>
 
             <TextField
-                fullWidth
-                name="phone"
-                type="tel"
-                inputMode="numeric"
-                pattern="[0-9]*"
-                placeholder={fieldPlaceholder}
-                margin="normal"
-                sx={{ borderRadius: 4 }}
-                required
+              fullWidth
+              name="phone"
+              type="tel"
+              inputMode="numeric"
+              pattern="[0-9]*"
+              placeholder={fieldPlaceholder}
+              margin="normal"
+              required
+              // Merge internal SX with passed SX
+              sx={[
+                 { borderRadius: 4 }, 
+                 styles.input 
+              ]}
+              // If you want to style the internal input/label specifically:
+              InputProps={{
+                 sx: styles.inputInner 
+              }}
             />
 
             <Button
-                fullWidth
-                type="submit"
-                size="large"
-                variant="contained"
-                sx={{ mt: 2, fontSize: 16, fontWeight: 900, borderRadius: 3 }}
+              fullWidth
+              type="submit"
+              size="large"
+              variant="contained"
+              sx={[
+                { mt: 2, fontSize: 16, fontWeight: 900, borderRadius: 3 },
+                styles.button, // Override button styles (e.g. background color)
+              ]}
             >
-                {buttonText}
+              {buttonText}
             </Button>
-            </form>
+          </form>
 
-            <Typography color="body1" textAlign="center" mt={5}>
-            {footerText} <a href={footerLink}>{footerLinkText}</a>
-            </Typography>
-            <Typography
+          <Typography color="body1" textAlign="center" mt={5}>
+            {footerText} <a href={footerLink} style={styles.link || {}}>{footerLinkText}</a>
+          </Typography>
+          <Typography
             variant="body2"
             mt={2}
             textAlign="center"
             sx={{
-                color: "text.secondary",
-                letterSpacing: "0.08em",
-                fontWeight: 400,
-                opacity: 0.85,
+              color: "text.secondary",
+              letterSpacing: "0.08em",
+              fontWeight: 400,
+              opacity: 0.85,
             }}
-            >
+          >
             {copyrightText}
-            </Typography>
+          </Typography>
         </Card>
-        </Box>
+      </Box>
     </Box>
   );
 }
