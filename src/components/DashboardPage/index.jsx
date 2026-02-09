@@ -11,7 +11,7 @@ import { useEffect, useState } from "react";
 export default function DashboardPage({ 
   MobileDashboard, 
   WebDashboard,
-  session = null, // <--- NEW: Accept session via props
+  session = null,
   styles = {}
 }) {
     const [mounted, setMounted] = useState(false);
