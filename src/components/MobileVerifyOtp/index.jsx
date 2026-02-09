@@ -6,12 +6,31 @@ import { requestOtp, verifyOtp } from "../../business/index.js";
 import { decrypt } from "../../lib/index.js";
 import { useSearchParams } from "next/navigation";
 
+/**
+ * Mobile Verify OTP Page Component
+ * * @typedef {Object} PageStyles
+ * @property {import("@mui/material").SxProps} [container] - Style the main container
+ * @property {import("@mui/material").SxProps} [title] - Style the page title
+ * @property {import("@mui/material").SxProps} [description] - Style the description text
+ * @property {import("@mui/material").SxProps} [otpContainer] - Style the Stack holding inputs
+ * @property {import("@mui/material").SxProps} [otpInput] - Style the individual OTP input fields
+ * @property {import("@mui/material").SxProps} [submitButton] - Style the Verify button
+ * @property {import("@mui/material").SxProps} [resendButton] - Style the Resend button
+ * * @param {Object} props
+ * @param {PageStyles} [props.styles] - Custom styling object
+ * @param {string} [props.title]
+ * @param {string} [props.description]
+ * @param {string} [props.buttonText]
+ * @param {string} [props.resendButtonText]
+ * @param {number} [props.otpLength]
+ */
 export default function MobileVerifyOtp({
   title = "Verify OTP",
   description = "Please enter the 4-digit code sent to your mobile number",
   buttonText = "Verify OTP",
   resendButtonText = "Resend OTP",
   otpLength = 4,
+  styles = {}
 }) {
   const searchParams = useSearchParams();
   const [otp, setOtp] = useState(Array(otpLength).fill(""));
@@ -77,16 +96,26 @@ export default function MobileVerifyOtp({
   };
 
   return (
-    <Box p={3}>
-      <Typography variant="h4" fontWeight={700}>
+    <Box sx={[{ p: 3 }, styles.container]}>
+      <Typography 
+        variant="h4" 
+        sx={[{ fontWeight: 700 }, styles.title]}
+      >
         {title}
       </Typography>
 
-      <Typography color="text.secondary" mt={1}>
+      <Typography 
+        color="text.secondary" 
+        sx={[{ mt: 1 }, styles.description]}
+      >
         {description}
       </Typography>
 
-      <Stack direction="row" spacing={2} mt={3} justifyContent="center">
+      <Stack 
+        direction="row" 
+        spacing={2} 
+        sx={[{ mt: 3, justifyContent: "center" }, styles.otpContainer]}
+      >
         {otp.map((digit, index) => (
           <TextField
             key={index}
@@ -94,6 +123,7 @@ export default function MobileVerifyOtp({
             inputRef={(el) => (inputsRef.current[index] = el)}
             onChange={(e) => handleChange(e.target.value, index)}
             onKeyDown={(e) => handleKeyDown(e, index)}
+            sx={[{ width: 56 }, styles.otpInput]}
             inputProps={{
               maxLength: 1,
               inputMode: "numeric",
@@ -104,17 +134,16 @@ export default function MobileVerifyOtp({
                 fontWeight: 600,
               },
             }}
-            sx={{ width: 56 }}
           />
         ))}
       </Stack>
 
       <Button
-        sx={{ mt: 4 }}
         variant="contained"
         fullWidth
         disabled={otp.join("").length !== otpLength || !msisdn}
         onClick={submitOtp}
+        sx={[{ mt: 4 }, styles.submitButton]}
       >
         {buttonText}
       </Button>
@@ -123,8 +152,8 @@ export default function MobileVerifyOtp({
         variant="text"
         onClick={resendOtp}
         disabled={!msisdn}
-        sx={{ mt: 1 }}
         fullWidth
+        sx={[{ mt: 1 }, styles.resendButton]}
       >
         {resendButtonText}
       </Button>

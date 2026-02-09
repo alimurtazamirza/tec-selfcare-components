@@ -6,6 +6,37 @@ import { requestOtp, verifyOtp } from "../../business/index.js";
 import { decrypt } from "../../lib/index.js";
 import { useSearchParams } from "next/navigation";
 
+/**
+ * Reusable Verify OTP Page Component
+ * * @typedef {Object} PageStyles
+ * @property {import("@mui/material").SxProps} [mainContainer] - Style the outer flex container
+ * @property {import("@mui/material").SxProps} [leftPanel] - Style the left background image box
+ * @property {import("@mui/material").SxProps} [rightPanel] - Style the right side wrapper
+ * @property {import("@mui/material").SxProps} [card] - Style the white content card
+ * @property {import("@mui/material").SxProps} [otpContainer] - Style the stack holding the input fields
+ * @property {import("@mui/material").SxProps} [otpInput] - Style the individual OTP input fields
+ * @property {import("@mui/material").SxProps} [button] - Style the Verify button
+ * @property {import("@mui/material").SxProps} [timerText] - Style the countdown/resend text area
+ * @property {Object} [link] - Style object for anchor tags (regular CSS properties)
+ * * @param {Object} props
+ * @param {PageStyles} [props.styles] - Custom styling object
+ * @param {string} [props.logo]
+ * @param {string} [props.backgroundImage]
+ * @param {string} [props.welcomeTitle]
+ * @param {string} [props.pageTitle]
+ * @param {string} [props.pageSubtitle]
+ * @param {string} [props.pageDescription]
+ * @param {string} [props.buttonText]
+ * @param {string} [props.resendText]
+ * @param {string} [props.resendLinkText]
+ * @param {string} [props.resendTimerText]
+ * @param {string} [props.footerText]
+ * @param {string} [props.footerLinkText]
+ * @param {string} [props.footerLink]
+ * @param {string} [props.copyrightText]
+ * @param {number} [props.otpLength]
+ * @param {number} [props.resendDelay]
+ */
 export default function WebVerifyOtp({
   logo = "https://tec.evampsaanga.com/media/api/widget/item/125.jpg",
   backgroundImage = "https://scportal.evampsaanga.com/assets/images/sign-in/sign-in-background.svg",
@@ -23,6 +54,7 @@ export default function WebVerifyOtp({
   copyrightText = "© 2025 — All rights reserved",
   otpLength = 4,
   resendDelay = 30,
+  styles = {},
 }) {
   const searchParams = useSearchParams();
   const [otp, setOtp] = useState(Array(otpLength).fill(""));
@@ -105,19 +137,28 @@ export default function WebVerifyOtp({
   };
 
   return (
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
+    <Box 
+      sx={[
+        { display: "flex", minHeight: "100vh" },
+        styles.mainContainer
+      ]}
+    >
       <Box
-        sx={{
-          width: "50%",
-          backgroundImage: `url('${backgroundImage}')`,
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          display: { xs: "none", md: "block" },
-        }}
+        sx={[
+          {
+            width: "50%",
+            backgroundImage: `url('${backgroundImage}')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            display: { xs: "none", md: "block" },
+            position: "relative"
+          },
+          styles.leftPanel
+        ]}
       >
         <Box sx={{ position: "absolute", bottom: "10%", left: "6%" }}>
           {logo && (
-            <img src={logo} alt="Logo" width={120} height={40} />
+            <img src={logo} alt="Logo" width={120} height={40} style={{ marginBottom: '1rem' }} />
           )}
           <Typography variant="h4" color="warning">
             {welcomeTitle}
@@ -126,23 +167,29 @@ export default function WebVerifyOtp({
       </Box>
 
       <Box
-        sx={{
-          width: { xs: "100%", md: "50%" },
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          p: 4,
-        }}
+        sx={[
+          {
+            width: { xs: "100%", md: "50%" },
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            p: 4,
+          },
+          styles.rightPanel
+        ]}
       >
         <Card
-          sx={{
-            width: "100%",
-            maxWidth: 440,
-            height: 520,
-            p: 4,
-            boxShadow: 3,
-            borderRadius: 5,
-          }}
+          sx={[
+            {
+              width: "100%",
+              maxWidth: 440,
+              // Removed fixed height to make it adaptive to content
+              p: 4,
+              boxShadow: 3,
+              borderRadius: 5,
+            },
+            styles.card
+          ]}
         >
           <Typography variant="h5" fontWeight={700} gutterBottom sx={{ mt: 1 }}>
             {pageTitle}
@@ -155,7 +202,13 @@ export default function WebVerifyOtp({
             {pageDescription}
           </Typography>
 
-          <Stack direction="row" spacing={2} mt={3} justifyContent="center">
+          <Stack 
+            direction="row" 
+            spacing={2} 
+            mt={3} 
+            justifyContent="center"
+            sx={styles.otpContainer} // Allow styling the row of inputs
+          >
             {otp.map((digit, index) => (
               <TextField
                 key={index}
@@ -163,6 +216,8 @@ export default function WebVerifyOtp({
                 inputRef={(el) => (inputsRef.current[index] = el)}
                 onChange={(e) => handleChange(e.target.value, index)}
                 onKeyDown={(e) => handleKeyDown(e, index)}
+                // Merge default width with user custom styles
+                sx={[{ width: 56 }, styles.otpInput]}
                 inputProps={{
                   maxLength: 1,
                   inputMode: "numeric",
@@ -173,7 +228,6 @@ export default function WebVerifyOtp({
                     fontWeight: 600,
                   },
                 }}
-                sx={{ width: 56 }}
               />
             ))}
           </Stack>
@@ -182,14 +236,17 @@ export default function WebVerifyOtp({
             fullWidth
             size="large"
             variant="contained"
-            sx={{ mt: 2, fontSize: 16, fontWeight: 900, borderRadius: 3 }}
+            sx={[
+              { mt: 2, fontSize: 16, fontWeight: 900, borderRadius: 3 },
+              styles.button
+            ]}
             disabled={otp.join("").length !== otpLength || !msisdn}
             onClick={submitOtp}
           >
             {buttonText}
           </Button>
 
-          <Box mt={2} textAlign="center">
+          <Box mt={2} textAlign="center" sx={styles.timerText}>
             {!canResend ? (
               <Typography variant="body2" color="text.secondary">
                 {resendTimerText} <strong>{resendTimer}</strong> sec
@@ -199,6 +256,7 @@ export default function WebVerifyOtp({
                 {resendText}{" "}
                 <a
                   href="#"
+                  style={styles.link}
                   onClick={(e) => {
                     e.preventDefault();
                     resendOtp();
@@ -211,7 +269,7 @@ export default function WebVerifyOtp({
           </Box>
 
           <Typography color="body1" textAlign="center" mt={5}>
-            {footerText} <a href={footerLink}>{footerLinkText}</a>
+            {footerText} <a href={footerLink} style={styles.link}>{footerLinkText}</a>
           </Typography>
 
           <Typography
