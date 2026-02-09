@@ -1,45 +1,48 @@
-import { Box } from "@mui/material";
+"use client";
+
+import { useEffect, useState } from "react";
+import { useAppContext } from "../../context";
 
 /**
- * Reusable Dashboard Page Component
- * 
- * @param {Object} props
- * @param {React.ComponentType} props.MobileSidebar - Mobile sidebar component
- * @param {React.ComponentType} props.WebSidebar - Web sidebar component
- * @param {React.ComponentType} props.Header - Header component
- * @param {React.ComponentType} props.Content - Main content component
- * @param {Object} props.user - User data object
- * @param {Function} props.onLogout - Logout handler function
+ * Reusable Dashboard Container
+ * * @param {Object} props
+ * @param {React.ComponentType} props.MobileDashboard - Mobile dashboard component
+ * @param {React.ComponentType} props.WebDashboard - Web dashboard component
+ * @param {Object} [props.styles] - Optional styles object to pass down
  */
-export default async function DashboardPage({
-  MobileSidebar,
-  WebSidebar,
-  Header,
-  Content,
-  user,
-  onLogout,
-  children,
+export default function Dashboard({ 
+  MobileDashboard, 
+  WebDashboard,
+  styles = {}
 }) {
-  return (
-    <Box sx={{ display: "flex", minHeight: "100vh" }}>
-      {/* Mobile Sidebar */}
-      <Box sx={{ display: { xs: "block", md: "none" } }}>
-        {MobileSidebar && <MobileSidebar user={user} onLogout={onLogout} />}
-      </Box>
+    const { session } = useAppContext();
+    const [mounted, setMounted] = useState(false);
+    const [isMobile, setIsMobile] = useState(false);
 
-      {/* Web Sidebar */}
-      <Box sx={{ display: { xs: "none", md: "block" } }}>
-        {WebSidebar && <WebSidebar user={user} onLogout={onLogout} />}
-      </Box>
+    useEffect(() => {
+        setMounted(true);
 
-      {/* Main Content Area */}
-      <Box sx={{ flexGrow: 1, display: "flex", flexDirection: "column" }}>
-        {Header && <Header user={user} onLogout={onLogout} />}
-        
-        <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-          {Content ? <Content user={user} /> : children}
-        </Box>
-      </Box>
-    </Box>
-  );
+        const check = () => {
+            // Match the 'md' breakpoint (900px) used in your other components
+            setIsMobile(window.innerWidth < 900); 
+        };
+
+        check();
+        window.addEventListener("resize", check);
+
+        return () => window.removeEventListener("resize", check);
+    }, []);
+
+    // Prevent hydration mismatch (don't render anything until client-side is ready)
+    if (!mounted) return null;
+
+    // Common props passed to both dashboards
+    const dashboardProps = {
+        session,
+        styles
+    };
+
+    return isMobile 
+        ? <MobileDashboard {...dashboardProps} /> 
+        : <WebDashboard {...dashboardProps} />;
 }
