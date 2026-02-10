@@ -2,6 +2,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useAppContext } from "../../context";
 
 /**
  * Reusable Dashboard Page (Library Component)
@@ -16,6 +17,8 @@ export default function DashboardPage({
 }) {
     const [mounted, setMounted] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
+
+    const { session } = session ?? useAppContext();
 
     useEffect(() => {
         setMounted(true);
