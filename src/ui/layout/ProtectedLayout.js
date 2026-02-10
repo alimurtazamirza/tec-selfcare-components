@@ -1,8 +1,6 @@
 import React from "react";
-import {BottomNav} from "../../ui";
-import {SideBar} from "../../ui/layout/SideBar";
-import {Box} from "@mui/material";
-import TopNav from "../../ui/layout/TopNav";
+import {BottomNav, SideBar, TopNav} from "../../ui";
+import {Box} from "@mui/material"
 import {AppWrapper} from "../../context";
 
 export default function ProtectedLayout({children, serverSession}) {
