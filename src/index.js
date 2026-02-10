@@ -17,8 +17,3 @@ export {
     MobileVerifyOtp,
     WebDashboard
 };
-
-export * from "./business/index.js";
-export * from "./lib/index.js";
-export * from "./context/index.js";
-export * from "./ui/index.js";

@@ -6,7 +6,11 @@
   "main": "src/index.js",
   "type": "module",
   "exports": {
-    ".": "./src/index.js"
+    ".": "./src/index.js",
+    "./ui": "./src/ui/index.js",
+    "./business": "./src/business/index.js",
+    "./lib": "./src/lib/index.js",
+    "./context": "./src/context/index.js"
   },
   "scripts": {
     "prepublishOnly": "echo 'Ready to publish'"
