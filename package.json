@@ -5,11 +5,17 @@
   "private": false,
   "main": "src/index.js",
   "type": "module",
-  "exports": {
-    ".": "./src/index.js",
-    "./LoginPage": "./src/LoginPage/index.jsx",
-    "./DashboardPage": "./src/DashboardPage/index.jsx",
-    "./RequestOtpPage": "./src/ui/web/login/RequestOtp.jsx"
+   "exports": {
+    ".": "./src/index.jsx",
+    "./LoginPage": "./src/components/LoginPage/index.jsx",
+    "./DashboardPage": "./src/components/DashboardPage/index.jsx",
+    "./WebRequestOtp": "./src/components/WebRequestOtp/index.jsx",
+    "./MobileRequestOtp": "./src/components/MobileRequestOtp/index.jsx",
+    "./WebVerifyOtp": "./src/components/WebVerifyOtp/index.jsx",
+    "./MobileVerifyOtp": "./src/components/MobileVerifyOtp/index.jsx",
+    "./WebDashboard": "./src/components/WebDashboard/index.jsx",
+    "./business": "./src/business/index.js",
+    "./lib": "./src/lib/index.js"
   },
   "scripts": {
     "prepublishOnly": "echo 'Ready to publish'"
