@@ -6,10 +6,7 @@
   "main": "src/index.js",
   "type": "module",
   "exports": {
-    ".": "./src/index.js",
-    "./LoginPage": "./src/LoginPage/index.jsx",
-    "./DashboardPage": "./src/DashboardPage/index.jsx",
-    "./RequestOtpPage": "./src/ui/web/login/RequestOtp.jsx"
+    ".": "./src/index.js"
   },
   "scripts": {
     "prepublishOnly": "echo 'Ready to publish'"
