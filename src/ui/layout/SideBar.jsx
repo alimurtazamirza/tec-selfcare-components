@@ -18,7 +18,7 @@ import {redirect} from "next/navigation";
 
 const drawerWidth = 280;
 
-export function SideBar() {
+export default function SideBar() {
     return (
         <Drawer
             variant="permanent"
