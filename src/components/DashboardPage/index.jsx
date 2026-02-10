@@ -12,13 +12,13 @@ import { useAppContext } from "../../context";
 export default function DashboardPage({ 
   MobileDashboard, 
   WebDashboard,
-  session = null,
+  sessionData = null,
   styles = {}
 }) {
     const [mounted, setMounted] = useState(false);
     const [isMobile, setIsMobile] = useState(false);
 
-    const { session } = session ?? useAppContext();
+    const { session } = sessionData ?? useAppContext();
 
     useEffect(() => {
         setMounted(true);
