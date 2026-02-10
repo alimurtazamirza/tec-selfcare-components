@@ -5,6 +5,7 @@ import WebRequestOtp from "./components/WebRequestOtp/index.jsx";
 import MobileRequestOtp from "./components/MobileRequestOtp/index.jsx";
 import WebVerifyOtp from "./components/WebVerifyOtp/index.jsx";
 import MobileVerifyOtp from "./components/MobileVerifyOtp/index.jsx";
+import WebDashboard from "./components/WebDashboard/index.jsx";
 
 // Export all components as named exports
 export { 
@@ -13,5 +14,6 @@ export {
     WebRequestOtp,
     MobileRequestOtp,
     WebVerifyOtp,
-    MobileVerifyOtp
+    MobileVerifyOtp,
+    WebDashboard
 };
