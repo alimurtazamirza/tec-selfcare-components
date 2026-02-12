@@ -62,7 +62,6 @@ export async function setSessionServer(values = {}) {
         maxAge: 60 * 60 * 24 * 7, // 1 week
     });
 
-    console.log("Session set:", merged);
 }
 
 // Get session

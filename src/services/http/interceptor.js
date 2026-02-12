@@ -1,6 +1,6 @@
 "use server";
 import packageInfo from "../../../package.json";
-import {getSessionServer, clearSessionServer} from "../../lib";
+import { getSessionServer, clearSessionServer } from "@/lib";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -18,15 +18,26 @@ export async function serverFetch(url, options = {}) {
     };
 
     // ---- Token if exists ---- //
-    if (session.access_token) {
-        defaultHeaders["X-Auth-SelfCare-Key"] = session.access_token;
-        defaultHeaders["msisdn"] = session.msisdn || "";
+    if (session.token) {
+        defaultHeaders["X-Auth-SelfCare-Key"] = session?.token;
+        defaultHeaders["msisdn"] = session?.msisdn;
+        defaultHeaders["primary-msisdn"] = session?.primaryMsisdn;
+        defaultHeaders["primary-offer-name"] = session?.primaryOfferName;
+        defaultHeaders["primary-offer-id"] = session?.primaryOfferId;
+        defaultHeaders["subscriber-type"] = session?.subscriberType;
+        defaultHeaders["price-plan"] = session?.primaryOfferName;
+        defaultHeaders["user-id"] = "1";
     }
 
     const finalHeaders = {
         ...defaultHeaders,
         ...(options.headers || {})
     };
+    console.log("----------------------------------");
+    console.log('headers: ', finalHeaders);
+    console.log('url: ', BASE_URL + url);
+    console.log("----------------------------------");
+    
 
     try {
         const response = await fetch(url.startsWith("http") ? url : BASE_URL + url, {
@@ -45,6 +56,6 @@ export async function serverFetch(url, options = {}) {
 
     } catch (error) {
         console.error("SERVER FETCH ERROR:", error);
-        return {error: true, message: error.message};
+        return { error: true, message: error.message };
     }
 }
